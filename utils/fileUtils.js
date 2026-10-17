@@ -36,7 +36,7 @@ export async function getAccountDetails(page) {
     }
     return accountDetails;
 }
-
+//Account Details
 export async function getAccountNumber(page) {
     const accountNumber = page.locator('#accountId');
     await expect(accountNumber).toBeVisible();

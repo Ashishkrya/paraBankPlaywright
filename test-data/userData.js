@@ -13,4 +13,14 @@ export const userData = {
     ssn: '123456789',
     invaildUsername: 'john',
     updatedCity: 'Reading',
+    //Bill Payment
+    payeeName: 'Jhon Tim',
+    address: '321 Main Street',
+    city: 'London',
+    state: 'London',
+    zipCode: 'SW1A 1AA',
+    phoneNumber: '07123456789',
+    accountNumber: '123456789',
+    verifyAccount: '123456789',
+    amount: '100'
 };

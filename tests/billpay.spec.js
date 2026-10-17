@@ -1,0 +1,22 @@
+import { test, expect } from '@playwright/test';
+const userDta = require('../test-data/loginUserID.json');
+import { userData } from '../test-data/userData';
+const BillPayPage = require('../POM/BillPayPage');
+
+
+test('Bill Payment', async ({ page }) => {
+    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+    await expect(page.locator('#leftPanel h2')).toHaveText('Customer Login');
+    await page.locator('input[name="username"]').fill(userDta.username);
+    await page.locator('input[name="password"]').fill(userDta.password);
+    await page.locator('input[value="Log In"]').click();
+    await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
+     
+
+    const billPayPage = new BillPayPage(page);
+    await billPayPage.billPayPage();
+    await billPayPage.fillPayeeDetails(userData);
+    await billPayPage.selectFromAccount();
+    await billPayPage.sendPayment();
+    await billPayPage.verifyPaymentComplete();
+})
