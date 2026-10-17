@@ -1,5 +1,5 @@
 
- // @ts-check
+// @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -7,9 +7,9 @@ export default defineConfig({
 
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 4 : undefined,
-  reporter: 'html',
+  reporter: [['list'], ['html']],
 
   use: {
     baseURL: 'https://parabank.parasoft.com/parabank',
@@ -29,7 +29,7 @@ export default defineConfig({
 
     {
       name: 'open-account',
-      testMatch: '**/OpenAccount.spec.js',
+      testMatch: '**/openNewAccount.spec.js',
       dependencies: ['register'],
       use: {
         ...devices['Desktop Chrome'],
@@ -41,7 +41,7 @@ export default defineConfig({
       name: 'regression',
       testIgnore: [
         '**/register.spec.js',
-        '**/OpenAccount.spec.js',
+        '**/openNewAccount.spec.js',
       ],
       dependencies: ['open-account'],
       fullyParallel: true,
