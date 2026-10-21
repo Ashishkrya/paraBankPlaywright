@@ -1,5 +1,6 @@
 const { expect } = require('@playwright/test');
 const { saveJson } = require('../utils/fileUtils');
+
 class RegisterPage {
     constructor(page) {
         this.page = page;
@@ -17,11 +18,14 @@ class RegisterPage {
         this.password = page.locator('[name="customer.password"]');
         this.confirmPassword = page.locator('[name="repeatedPassword"]');
         this.registerButton = page.getByRole('button', { name: 'Register' });
+        this.errorMessages = page.locator('span.error');
 
     }
-    async registerUser(userData) {
-        await this.page.goto('https://parabank.parasoft.com/parabank/index.htm');
+    async registrationlink() {
+        await this.page.goto('https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC');
         await expect(this.registerLink).toBeVisible();
+    }
+    async registerUser(userData) {
         await this.registerLink.click();
         await expect(this.pageHeading).toHaveText('Signing up is easy!');
         await this.firstName.fill(userData.firstName);
@@ -37,6 +41,9 @@ class RegisterPage {
         await this.confirmPassword.fill(userData.password);
         await expect(this.confirmPassword).toHaveValue(userData.password);
         await expect(this.password).toHaveValue(userData.password);
+
+    }
+    async clickRegisterButton() {
         await this.registerButton.click();
     }
     async verifyRegistrationSuccess(username) {
@@ -48,5 +55,10 @@ class RegisterPage {
             password: userData.password
         });
     }
+    async verifyRequiredFieldErrors() {
+    const count = await this.errorMessages.count();
+    console.log('Total error messages:', count);
+    expect(count).toBe(10);
+}
 }
 module.exports = RegisterPage;

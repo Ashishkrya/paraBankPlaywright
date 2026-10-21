@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 const userDta = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
-const BillPayPage = require('../POM/BillPayPage');
+const { POManager } = require('../POM/POManager');
 
 
 test('Bill Payment', async ({ page }) => {
@@ -11,9 +11,9 @@ test('Bill Payment', async ({ page }) => {
     await page.locator('input[name="password"]').fill(userDta.password);
     await page.locator('input[value="Log In"]').click();
     await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
-     
 
-    const billPayPage = new BillPayPage(page);
+    const poManager = new POManager(page);
+    const billPayPage = poManager.getbillPayPage();
     await billPayPage.billPayPage();
     await billPayPage.fillPayeeDetails(userData);
     await billPayPage.selectFromAccount();

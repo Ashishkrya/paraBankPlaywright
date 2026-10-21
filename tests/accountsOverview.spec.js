@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 const userDta = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
-const AccountsOverview = require('../POM/AccountsOverview');
+const {POManager} = require('../POM/POManager');
 import { saveJson, getAccountDetails, getAccountNumber, selectTransactionFilters } from '../utils/fileUtils';
 
 
@@ -13,8 +13,8 @@ test('Accounts Overview Page', async ({ page }) => {
     await page.locator('input[value="Log In"]').click();
     await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
     //account overview
-    
-    const accountsOverview = new AccountsOverview(page);
+    const poManager= new POManager(page);
+    const accountsOverview = poManager.getAccountsOverview();
 
     // Accounts Overview
     await accountsOverview.verifyAccountsOverview();

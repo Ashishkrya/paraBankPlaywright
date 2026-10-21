@@ -1,6 +1,6 @@
 const randomNumber = Math.floor(Math.random() * 100000);
 
-export const userData = {
+const userData = {
     username: `johtimn${randomNumber}`,
     password: 'Jhon@12345',
     firstName: 'John',
@@ -24,3 +24,4 @@ export const userData = {
     verifyAccount: '123456789',
     amount: '100'
 };
+module.exports = { userData };

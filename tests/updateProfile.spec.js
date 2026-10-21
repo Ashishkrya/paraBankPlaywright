@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 const userDta = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
-const UpdateProfile= require('../POM/UpdateProfile');
+const {POManager} = require('../POM/POManager');
 
 test('Update Profile Page', async ({ page }) => {
     await page.goto('https://parabank.parasoft.com/parabank/index.htm');
@@ -11,7 +11,9 @@ test('Update Profile Page', async ({ page }) => {
     await page.locator('input[value="Log In"]').click();
     await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
     
-    const updateProfile =new UpdateProfile(page);
+    
+    const poManager= new POManager(page);
+    const updateProfile = poManager.getUpdateProfile();
     await updateProfile.getUpdateProfilePage();
     await updateProfile.updateContactInfo(userData);
     await updateProfile.updateProfile();

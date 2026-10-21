@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const TransferFundsPage = require('../POM/TransferFundsPage');
+const {POManager} = require('../POM/POManager');
 const userDta = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
 
@@ -12,7 +12,8 @@ test('Transfer Funds', async ({ page }) => {
     await page.locator('input[value="Log In"]').click();
     await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
 
-    const transferFundsPage = new TransferFundsPage(page);
+    const poManager= new POManager(page);
+    const transferFundsPage = poManager.getTransferFundsPage();
     await transferFundsPage.openTransferFunds();
     await transferFundsPage.enterAmount('100');
     await transferFundsPage.selectFromAccount();

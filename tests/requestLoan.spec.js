@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 const userDta = require('../test-data/loginUserID.json');
-const RequestLoan = require('../POM/RequestLoan');
+const {POManager} = require('../POM/POManager');
 import { userData } from '../test-data/userData';
 import { saveJson, getAccountNumber, isAccountPresent } from '../utils/fileUtils';
 
@@ -12,8 +12,9 @@ test('Request Loan', async ({ page }) => {
     await page.locator('input[name="password"]').fill(userDta.password);
     await page.locator('input[value="Log In"]').click();
     await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
-    
-    const requestLoanPage = new RequestLoan(page);
+
+    const poManager= new POManager(page);
+    const requestLoanPage = poManager.getRequestLoanPage();
     await requestLoanPage.requestLoanpage();
     await requestLoanPage.loanDetails();
     await requestLoanPage.applyLoan();

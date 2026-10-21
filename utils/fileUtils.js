@@ -1,8 +1,11 @@
-import fs from 'fs';
-import { test, expect } from '@playwright/test';
-const userDta = require('../test-data/loginUserID.json');
+// import fs from 'fs';
+// import { test, expect } from '@playwright/test';
+// const userDta = require('../test-data/loginUserID.json');
+const fs = require('fs');
+const path = require('path');
+const { expect } = require('@playwright/test');
 
-export function saveJson(fileName, newData) {
+function saveJson(fileName, newData) {
     const filePath = `test-data/${fileName}.json`;
     let existingData = {};
     if (fs.existsSync(filePath)) {
@@ -18,7 +21,7 @@ export function saveJson(fileName, newData) {
     );
 }
 
-export async function getAccountDetails(page) {
+async function getAccountDetails(page) {
     const rows = page.locator('#accountTable tbody tr:has(a)');
     await expect(rows.first()).toBeVisible();
     const count = await rows.count();
@@ -37,14 +40,14 @@ export async function getAccountDetails(page) {
     return accountDetails;
 }
 //Account Details
-export async function getAccountNumber(page) {
+ async function getAccountNumber(page) {
     const accountNumber = page.locator('#accountId');
     await expect(accountNumber).toBeVisible();
     await expect(accountNumber).not.toHaveText('');
     return (await accountNumber.innerText()).trim();
 }
 //Account Activity
-export async function selectTransactionFilters(page, month, transactionType, transactionId) {
+ async function selectTransactionFilters(page, month, transactionType, transactionId) {
     await page.locator('#month').selectOption({ label: month });
     await page.locator('#transactionType').selectOption({ label: transactionType });
     await expect(page.locator('#transactionType')).toHaveValue(transactionType);
@@ -77,7 +80,7 @@ export async function selectTransactionFilters(page, month, transactionType, tra
 }
 
 // is account presnet: 
-export async function isAccountPresent(page, accountNumber) {
+async function isAccountPresent(page, accountNumber) {
     const accountDetails = await getAccountDetails(page);
     return accountDetails.some(
         account => account.account === accountNumber
@@ -85,7 +88,7 @@ export async function isAccountPresent(page, accountNumber) {
 }
 
 //
-export async function getTransactionDetails(page) {
+async function getTransactionDetails(page) {
     const panel = page.locator('#rightPanel');
     await expect(panel.getByRole('heading', { name: 'Transaction Details' })).toBeVisible();
     const rows = panel.locator('table tbody tr');
@@ -105,3 +108,11 @@ export async function getTransactionDetails(page) {
     }
     return transactionDetails;
 }
+module.exports = {
+    saveJson,
+    getAccountDetails,
+    getAccountNumber,
+    selectTransactionFilters,
+    isAccountPresent,
+    getTransactionDetails
+};
