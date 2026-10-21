@@ -3,3 +3,4 @@ UI test automation framework for ParaBank using Playwright and JavaScript, cover
 git status
 git add .
 git commit -m "Add Cypress automation scripts"
+git push

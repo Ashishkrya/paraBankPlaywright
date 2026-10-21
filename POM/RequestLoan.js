@@ -1,5 +1,6 @@
 const { expect } = require('@playwright/test');
-import { getAccountNumber } from '../utils/fileUtils';
+//import { getAccountNumber } from '../utils/fileUtils';
+const { getAccountNumber } = require('../utils/fileUtils');
 class RequestLoan {
     constructor(page) {
         this.page = page;

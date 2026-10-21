@@ -1,27 +1,16 @@
-/*
-const playwright = require('@playwright/test');
-const { Before} = require('@cucumber/cucumber');
+const { Before,After} = require('@cucumber/cucumber');
+// const {POManager} = require('../POM/POManager');
+const { POManager } = require('../../POM/POManager');
+const { chromium } = require('@playwright/test');
 
-Before (async function(){
-    const browser= await playwright.chromium.launch({
-        headless: false
-    });
-    const context= await browser.newContext();
-    const page= await context.newPage();
-})
-*/
+Before(async function () {
+  this.browser = await chromium.launch({ headless: true });
+  this.page = await this.browser.newPage();
+  this.poManager = new POManager(this.page);
+});
 
-// const { After, Before } = require('@cucumber/cucumber');
-// const { chromium } = require('@playwright/test');
-
-// Before(async function () {
-//   this.browser = await chromium.launch({ headless: true });
-//   this.context = await this.browser.newContext();
-//   this.page = await this.context.newPage();
-// });
-
-// After(async function () {
-//   if (this.browser) {
-//     await this.browser.close();
-//   }
-// });
+After(async function () {
+  if (this.browser) {
+    await this.browser.close();
+  }
+});

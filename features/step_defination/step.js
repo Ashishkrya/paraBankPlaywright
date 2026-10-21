@@ -1,24 +1,13 @@
 const { After, Before, Given, When, Then, setDefaultTimeout } = require('@cucumber/cucumber');
-const { chromium } = require('@playwright/test');
-const RegisterPage = require('../../POM/RegisterPage');
 const { userData } = require('../../test-data/userData');
 
 
 setDefaultTimeout(30000);
 
-Before(async function () {
-  this.browser = await chromium.launch({ headless: true });
-  this.page = await this.browser.newPage();
-  this.registerPage = new RegisterPage(this.page);
-});
-
-After(async function () {
-  if (this.browser) {
-    await this.browser.close();
-  }
-});
 
 Given('the user is on the ParaBank registration page', async function () {
+  // this.registerPage = poManager.getregisterPage();
+  this.registerPage = this.poManager.getregisterPage();
   await this.registerPage.registrationlink();
 });
 
@@ -45,4 +34,3 @@ Then('UserName and Passowrd shuld be saved',async function(){
 Then ('validation error messages count shuold be 10', async function (){
     await this.registerPage.verifyRequiredFieldErrors();
 })
-
