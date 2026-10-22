@@ -2,7 +2,7 @@ const { expect } = require('@playwright/test');
 class TransferFundsPage {
     constructor(page) {
         this.page = page;
-        this.transferFundsLink = page.getByRole('link', { name: 'Transfer Funds' });
+        this.transferFundsLink = page.locator('#leftPanel').getByRole('link', { name: 'Transfer Funds' });
         this.pageTitle = page.locator('#showForm h1.title');
         this.amount = page.locator('#amount');
         this.fromAccount = page.locator('#fromAccountId');
@@ -37,6 +37,7 @@ class TransferFundsPage {
         await this.transferButton.click();
     }
     async verifyTransferComplete() {
+        await expect(this.resultTitle).toBeVisible();
         await expect(this.resultTitle).toHaveText('Transfer Complete!');
     }
 

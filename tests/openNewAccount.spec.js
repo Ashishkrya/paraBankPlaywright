@@ -8,12 +8,6 @@ const { POManager } = require('../POM/POManager');
 
 test('Open New Account', async ({ page }) => {
     await page.goto('https://parabank.parasoft.com/parabank/index.htm');
-    await expect(page.locator('#leftPanel h2')).toHaveText('Customer Login');
-    await page.locator('input[name="username"]').fill(userDta.username);
-    await page.locator('input[name="password"]').fill(userDta.password);
-    await page.locator('input[value="Log In"]').click();
-    await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
-
     const poManager = new POManager(page);
     const openAccount = poManager.getopenAccount();
     const newOpenAccountNumber = await openAccount.openNewAccount('SAVINGS');

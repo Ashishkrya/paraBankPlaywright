@@ -5,10 +5,15 @@ const { getAccountDetails, getAccountNumber,selectTransactionFilters} = require(
 class AccountsOverview {
     constructor(page) {
         this.page = page;
+        this.link= page.getByRole('link' ,{name:'Accounts Overview'})
         this.accountsOverviewTitle = page.locator('#showOverview h1.title');
         this.accountRows = page.locator('#accountTable tbody tr:has(a)');
         this.accountDetailsTitle = page.locator('#accountDetails h1.title');
         this.accountId = page.locator('#accountId');
+    }
+    async getpage(){
+        await expect(this.link).toBeVisible();
+        await this.link.click();
     }
 
     async verifyAccountsOverview() {

@@ -6,6 +6,7 @@ const RegisterPage = require('./RegisterPage');
 const RequestLoan = require('./RequestLoan');
 const TransferFundsPage = require('./TransferFundsPage');
 const UpdateProfile = require('./UpdateProfile');
+const Login = require('./Login');
 
 class POManager {
     constructor(page) {
@@ -18,31 +19,35 @@ class POManager {
         this.requestLoanPage = new RequestLoan(this.page);
         this.transferFundsPage = new TransferFundsPage(this.page);
         this.updateProfile = new UpdateProfile(this.page);
+        this.logIn = new Login(this.page);
     }
-    getAccountsOverview(){
-        return this.accountsOverview ;
+    getlogInPage() {
+        return this.logIn;
     }
-    getbillPayPage(){
+    getAccountsOverview() {
+        return this.accountsOverview;
+    }
+    getbillPayPage() {
         return this.billPayPage;
     }
-    getfindTransaction(){
+    getfindTransaction() {
         return this.findTransaction;
     }
-    getopenAccount(){
+    getopenAccount() {
         return this.openAccount;
     }
-    getregisterPage(){
+    getregisterPage() {
         return this.registerPage;
     }
-    getRequestLoanPage(){
+    getRequestLoanPage() {
         return this.requestLoanPage;
     }
-    getTransferFundsPage(){
+    getTransferFundsPage() {
         return this.transferFundsPage;
     }
-    getUpdateProfile(){
+    getUpdateProfile() {
         return this.updateProfile;
     }
 
 }
-module.exports ={POManager};
+module.exports = { POManager };

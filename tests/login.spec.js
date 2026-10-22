@@ -1,21 +1,23 @@
 import { test, expect } from '@playwright/test';
-const userDta = require('../test-data/loginUserID.json');
+const login = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
+const { POManager } = require('../POM/POManager');
 
 test('Customer Login', async ({ page }) => {
-    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
-    await expect(page.locator('#leftPanel h2')).toHaveText('Customer Login');
-    await page.locator('input[name="username"]').fill(userDta.username);
-    await page.locator('input[name="password"]').fill(userDta.password);
-    await page.locator('input[value="Log In"]').click();
-    await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
+    const poManager = new POManager(page);
+    const getlogInPage = poManager.getlogInPage();
+    await getlogInPage.loginMainLink();
+    await getlogInPage.loginDetails(login.username, login.password);
+    await getlogInPage.clickLoginButton();
+    await getlogInPage.welocmeMessage(userData);
+    page.context().storageState({path:'test-data/Auth.json'});
 })
 
 test('Unverified Customer Login', async ({ page }) => {
-    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
-    await expect(page.locator('#leftPanel h2')).toHaveText('Customer Login');
-    await page.locator('input[name="username"]').fill(userData.username);
-    await page.locator('input[name="password"]').fill(userDta.password);
-    await page.locator('input[value="Log In"]').click();
-    await expect(page.locator('p.error')).toContainText('The username and password could not be verified');
+    const poManager = new POManager(page);
+    const getlogInPage = poManager.getlogInPage();
+    await getlogInPage.loginMainLink();
+    await getlogInPage.loginDetails(userData.invaildUsername, userData.password);
+    await getlogInPage.clickLoginButton();
+    await getlogInPage.loginError();
 });

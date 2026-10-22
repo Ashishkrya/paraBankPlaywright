@@ -7,16 +7,11 @@ import { saveJson, getAccountDetails, getAccountNumber, selectTransactionFilters
 
 test('Accounts Overview Page', async ({ page }) => {
     await page.goto('https://parabank.parasoft.com/parabank/index.htm');
-    await expect(page.locator('#leftPanel h2')).toHaveText('Customer Login');
-    await page.locator('input[name="username"]').fill(userDta.username);
-    await page.locator('input[name="password"]').fill(userDta.password);
-    await page.locator('input[value="Log In"]').click();
-    await expect(page.locator('p.smallText')).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
-    //account overview
     const poManager= new POManager(page);
     const accountsOverview = poManager.getAccountsOverview();
 
     // Accounts Overview
+    await accountsOverview.getpage();
     await accountsOverview.verifyAccountsOverview();
 
     // Get the first account directly without saving to JSON

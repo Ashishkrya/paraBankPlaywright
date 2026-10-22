@@ -2,7 +2,7 @@ const { expect } = require('@playwright/test');
 class BillPayPage {
     constructor(page) {
         this.page = page;
-        this.billPaymentLink = page.getByRole('link', { name: 'Bill Pay' });
+        this.billPaymentLink = page.locator('#leftPanel').getByRole('link', { name: 'Bill Pay' });
         this.billTitle = page.locator('#billpayForm h1.title');
         this.payeeName = page.locator('[name="payee.name"]');
         this.payeeAdd = page.locator('[name="payee.address.street"]');
@@ -48,7 +48,8 @@ class BillPayPage {
 
     }
     async verifyPaymentComplete() {
-        await expect(this.verifyPayment).toContainText('Bill Payment Complete')
+        await expect(this.verifyPayment).toContainText('Bill Payment Complete');
+        await expect(this.verifyPayment).toBeVisible();
 
     }
 
