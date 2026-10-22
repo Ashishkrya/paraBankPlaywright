@@ -1,4 +1,3 @@
-// @ts-check
 import { test } from '@playwright/test';
 import { userData } from '../test-data/userData';
 const { POManager } = require('../POM/POManager');

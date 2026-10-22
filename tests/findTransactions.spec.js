@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 const userDta = require('../test-data/loginUserID.json');
-import { userData } from '../test-data/userData';
 const { POManager } = require('../POM/POManager');
 import transactionDetail from '../test-data/transactionDetails.json';
 
