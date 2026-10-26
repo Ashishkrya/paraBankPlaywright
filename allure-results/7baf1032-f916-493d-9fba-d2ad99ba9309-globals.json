@@ -1,1 +1,0 @@
-{"attachments":[],"errors":[{"message":"beforeAll hook failed: ReferenceError: page is not defined","trace":"ReferenceError: page is not defined\n    at /Users/ashishyadav/ParabankPlaywright/tests/findTransactions.spec.js:7:37","status":"broken","timestamp":1793024823555}]}

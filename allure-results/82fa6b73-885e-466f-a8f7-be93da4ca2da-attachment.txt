@@ -1,3 +1,0 @@
-Session saved successfully
-Customer ID: 18428
-Accounts: [ { id: 20781, customerId: 18428, type: 'CHECKING', balance: 515.5 } ]
