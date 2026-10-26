@@ -1,0 +1,6 @@
+{
+  responseDate: 1793023661519,
+  loanProviderName: 'Wealth Securities Dynamic Loans (WSDL)',
+  approved: true,
+  accountId: 17562
+}

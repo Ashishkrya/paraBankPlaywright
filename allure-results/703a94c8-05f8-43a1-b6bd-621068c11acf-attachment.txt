@@ -1,0 +1,13 @@
+Customer Accounts: {
+  id: 26864,
+  firstName: 'John',
+  lastName: 'Doe',
+  address: {
+    street: '321 Main Street',
+    city: 'London',
+    state: 'London',
+    zipCode: 'SW1A 1AA'
+  },
+  phoneNumber: '9876543210',
+  ssn: '123456789'
+}

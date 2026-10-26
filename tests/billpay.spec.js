@@ -3,8 +3,8 @@ import { userData } from '../test-data/userData';
 const { POManager } = require('../POM/POManager');
 
 
-test('Bill Payment', async ({ page }) => {
-    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+test('@Web Bill Payment', async ({ page }) => {
+    await page.goto('https://parabank.parasoft.com/parabank/overview.htm');
     const poManager = new POManager(page);
     const billPayPage = poManager.getbillPayPage();
     await billPayPage.billPayPage();

@@ -1,0 +1,13 @@
+Customer Accounts: {
+  id: 14099,
+  firstName: 'John',
+  lastName: 'Doe',
+  address: {
+    street: '321 Main Streety',
+    city: 'Reading',
+    state: 'London',
+    zipCode: 'SW1A 1AA'
+  },
+  phoneNumber: '9876543210',
+  ssn: '123456789'
+}

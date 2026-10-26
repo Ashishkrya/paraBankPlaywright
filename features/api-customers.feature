@@ -16,7 +16,6 @@ Feature: Customers REST API
   # AC-12.1 — Get customer details
   Scenario: Retrieve customer details by customer ID
     When a GET request is sent to "customers/{customerId}"
-    And the "Accept: application/json" header is set
     Then the response status is 200
     And the response body contains "id" matching the customerId
     And the response body contains "firstName"

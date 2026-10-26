@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
+    "Regression": "npx playwright test --grep @Web",
     "test:headed": "playwright test --headed",
     "test:cucumber": "cucumber-js"
   },
@@ -13,8 +13,10 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "1.64.0",
-    "@types/node": "^26.6.4"
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.4",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^3.14.0"
   },
   "dependencies": {
     "@cucumber/cucumber": "^13.3.0"

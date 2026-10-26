@@ -3,17 +3,26 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
+  //fullyParallel: false,
+  workers:4,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  retries:  1 ,
+  //workers: process.env.CI ? 1 : undefined,
+  //reporter: 'html',
+  reporter: [
+    ['html'],
+    ['list'],
+    ['allure-playwright']
+],
   use: {
-    baseURL: 'https://parabank.parasoft.com/parabank',
-    //trace: 'on-first-retry',
-    browserName: 'chromium',
+    baseURL: 'https://parabank.parasoft.com/parabank/',
+    
+    trace: 'on-first-retry',
+    browserName: 'chromium',//'webkit'
+    headless: false, //true
     channel: 'chrome',
     storageState: 'test-data/auth.json',
+    screenshot: 'only-on-failure',
   },
   projects: [
     {

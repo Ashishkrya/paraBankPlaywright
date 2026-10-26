@@ -4,8 +4,8 @@ const { POManager } = require('../POM/POManager');
 
 
 
-test('Open New Account', async ({ page }) => {
-    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+test('@Web Open New Account', async ({ page }) => {
+    await page.goto('https://parabank.parasoft.com/parabank/overview.htm');
     const poManager = new POManager(page);
     const openAccount = poManager.getopenAccount();
     const newOpenAccountNumber = await openAccount.openNewAccount('SAVINGS');

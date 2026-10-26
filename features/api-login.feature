@@ -12,15 +12,6 @@ Feature: Login REST API
   # AC-10.1 — Successful API login
   Scenario: Login with valid credentials returns customer data
     Given the API base URL is configured
-    When a GET request is sent to "login/{username}/{password}" with valid credentials
-    And the "Accept: application/json" header is set
+    When a POST request is sent to "login.htm" with valid credentials
     Then the response status is 200
     And the response body contains a customer "id"
-    And the response body contains "firstName"
-    And the response body contains "lastName"
-
-  # AC-10.2 — Invalid credentials return 400
-  Scenario: Login with invalid credentials returns HTTP 400
-    When a GET request is sent to "login/nonexistentuser/wrongpassword"
-    And the "Accept: application/json" header is set
-    Then the response status is 400

@@ -1,0 +1,4 @@
+Customer Accounts: [
+  { id: 27663, customerId: 21536, type: 'CHECKING', balance: 510.5 },
+  { id: 31548, customerId: 21536, type: 'LOAN', balance: 10 }
+]

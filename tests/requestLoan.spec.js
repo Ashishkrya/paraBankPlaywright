@@ -3,8 +3,8 @@ const {POManager} = require('../POM/POManager');
 
 
 
-test('Request Loan', async ({ page }) => {
-    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+test('@Web Request Loan', async ({ page }) => {
+    await page.goto('https://parabank.parasoft.com/parabank/overview.htm');
     const poManager= new POManager(page);
     const requestLoanPage = poManager.getRequestLoanPage();
     await requestLoanPage.requestLoanpage();

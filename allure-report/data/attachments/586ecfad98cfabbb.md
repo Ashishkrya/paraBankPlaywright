@@ -1,0 +1,151 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: login.spec.js >> Customer Login
+- Location: tests/login.spec.js:6:5
+
+# Error details
+
+```
+Error: expect(locator).toContainText(expected) failed
+
+Locator: locator('p.smallText')
+Expected substring: "Welcome John Doe"
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toContainText" locator('p.smallText') with timeout 5000ms
+  - waiting for locator('p.smallText')
+
+```
+
+```yaml
+- link:
+  - /url: admin.htm
+  - img
+- link "ParaBank":
+  - /url: index.htm
+  - img "ParaBank"
+- paragraph: Experience the difference
+- list:
+  - listitem: Solutions
+  - listitem:
+    - link "About Us":
+      - /url: about.htm
+  - listitem:
+    - link "Services":
+      - /url: services.htm
+  - listitem:
+    - link "Products":
+      - /url: http://www.parasoft.com/jsp/products.jsp
+  - listitem:
+    - link "Locations":
+      - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+  - listitem:
+    - link "Admin Page":
+      - /url: admin.htm
+- list:
+  - listitem:
+    - link "home":
+      - /url: index.htm
+  - listitem:
+    - link "about":
+      - /url: about.htm
+  - listitem:
+    - link "contact":
+      - /url: contact.htm
+- heading "Customer Login" [level=2]
+- paragraph: Username
+- textbox
+- paragraph: Password
+- textbox
+- button "Log In"
+- paragraph:
+  - link "Forgot login info?":
+    - /url: lookup.htm
+- paragraph:
+  - link "Register":
+    - /url: register.htm
+- heading "Error!" [level=1]
+- paragraph: The username and password could not be verified.
+- list:
+  - listitem:
+    - link "Home":
+      - /url: index.htm
+    - text: "|"
+  - listitem:
+    - link "About Us":
+      - /url: about.htm
+    - text: "|"
+  - listitem:
+    - link "Services":
+      - /url: services.htm
+    - text: "|"
+  - listitem:
+    - link "Products":
+      - /url: http://www.parasoft.com/jsp/products.jsp
+    - text: "|"
+  - listitem:
+    - link "Locations":
+      - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+    - text: "|"
+  - listitem:
+    - link "Site Map":
+      - /url: sitemap.htm
+    - text: "|"
+  - listitem:
+    - link "Contact Us":
+      - /url: contact.htm
+- paragraph: © Parasoft. All rights reserved.
+- list:
+  - listitem: "Visit us at:"
+  - listitem:
+    - link "www.parasoft.com":
+      - /url: http://www.parasoft.com/
+```
+
+# Test source
+
+```ts
+  1  | const { expect } = require('@playwright/test');
+  2  | class Login {
+  3  |     constructor(page) {
+  4  |         this.page = page;
+  5  |         this.loginPageVisiable = page.locator('#leftPanel h2')
+  6  |         this.username = page.locator('input[name="username"]')
+  7  |         this.password = page.locator('input[name="password"]')
+  8  |         this.loginButton = page.locator('input[value="Log In"]')
+  9  |         this.loginDone = page.locator('p.smallText')
+  10 |         this.error = page.locator('p.error')
+  11 | 
+  12 |     }
+  13 |     async loginMainLink() {
+  14 |         await this.page.goto('https://parabank.parasoft.com/parabank/index.htm');
+  15 |         await expect(this.loginPageVisiable).toHaveText('Customer Login');
+  16 |     }
+  17 |     async loginDetails(username, password) {
+  18 |         await this.username.fill(username);
+  19 |         await this.password.fill(password);
+  20 | 
+  21 |     }
+  22 |     async clickLoginButton() {
+  23 |         await this.loginButton.click();
+  24 |     }
+  25 |     async welocmeMessage(userData) {
+> 26 |         await expect(this.loginDone).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
+     |                                      ^ Error: expect(locator).toContainText(expected) failed
+  27 | 
+  28 |     }
+  29 |     async loginError() {
+  30 |         await expect(this.error).toContainText('The username and password could not be verified');
+  31 | 
+  32 |     }
+  33 | }
+  34 | module.exports = Login;
+```

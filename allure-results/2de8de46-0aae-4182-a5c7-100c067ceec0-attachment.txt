@@ -1,0 +1,8 @@
+Customer Accounts: [
+  { id: 15120, customerId: 13433, type: 'CHECKING', balance: 15.5 },
+  { id: 15675, customerId: 13433, type: 'SAVINGS', balance: 100 },
+  { id: 15786, customerId: 13433, type: 'SAVINGS', balance: 90 },
+  { id: 15897, customerId: 13433, type: 'CHECKING', balance: 100 },
+  { id: 16008, customerId: 13433, type: 'LOAN', balance: 100 },
+  { id: 16452, customerId: 13433, type: 'SAVINGS', balance: 100 }
+]

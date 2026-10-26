@@ -1,0 +1,1 @@
+Customer Accounts: [ { id: 16341, customerId: 14099, type: 'CHECKING', balance: 515.5 } ]

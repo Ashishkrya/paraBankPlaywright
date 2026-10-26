@@ -1,0 +1,1 @@
+Customer Accounts: { id: 15786, customerId: 13433, type: 'SAVINGS', balance: 0 }

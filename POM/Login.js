@@ -23,7 +23,7 @@ class Login {
         await this.loginButton.click();
     }
     async welocmeMessage(userData) {
-        await expect(this.loginDone).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`);
+        await expect(this.loginDone).toContainText(`Welcome ${userData.firstName} ${userData.lastName}`,{timeout:5000});
 
     }
     async loginError() {

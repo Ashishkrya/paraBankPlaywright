@@ -3,7 +3,6 @@ const { expect } = require('@playwright/test');
 class OpenAccount {
     constructor(page) {
         this.page = page;
-        // Open account locators
         this.openNewAccountLink = page.getByRole('link', { name: 'Open New Account' });
         this.accountType = page.locator('#type');
         this.fromAccount = page.locator('#fromAccountId');
@@ -21,6 +20,8 @@ class OpenAccount {
         });
     }
     async openNewAccount(type = 'SAVINGS') {
+        await this.page.goto('overview.htm');
+        await expect(this.openNewAccountLink).toBeVisible();
         await this.openNewAccountLink.click();
         await expect(this.openNewAccountButton).toBeVisible();
         await this.accountType.selectOption({ label: type });

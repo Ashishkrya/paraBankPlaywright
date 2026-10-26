@@ -1,0 +1,7 @@
+{
+  responseDate: 1793013940974,
+  loanProviderName: 'Jiffy Mortgage Solutions (JMS)',
+  approved: false,
+  message: 'error.insufficient.funds.for.down.payment',
+  accountId: null
+}
