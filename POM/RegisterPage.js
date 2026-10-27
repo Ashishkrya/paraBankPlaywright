@@ -5,6 +5,7 @@ class RegisterPage {
     constructor(page) {
         this.page = page;
         this.registerLink = page.getByRole('link', { name: 'Register' });
+        this.logOutLink = page.getByRole('link', { name: 'Log Out' });
         this.pageHeading = page.locator('#rightPanel h1.title');
         this.firstName = page.locator('[name="customer.firstName"]');
         this.lastName = page.locator('[name="customer.lastName"]');
@@ -23,7 +24,11 @@ class RegisterPage {
     }
     async registrationlink() {
         await this.page.goto('https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC');
-        await expect(this.registerLink).toBeVisible();
+        if (await this.logOutLink.isVisible().catch(() => false)) {
+            await this.logOutLink.click({ timeout: 10000 });
+        } else {
+            await expect(this.registerLink).toBeVisible({ timeout: 10000 });
+        }
     }
     async registerUser(userData) {
         await this.registerLink.click();
@@ -56,9 +61,9 @@ class RegisterPage {
         });
     }
     async verifyRequiredFieldErrors() {
-    const count = await this.errorMessages.count();
-    console.log('Total error messages:', count);
-    expect(count).toBe(10);
-}
+        const count = await this.errorMessages.count();
+        console.log('Total error messages:', count);
+        expect(count).toBe(10);
+    }
 }
 module.exports = RegisterPage;
