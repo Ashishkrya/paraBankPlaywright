@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "Regression": "npx playwright test --grep @Web",
-    "test:headed": "playwright test --headed",
-    "test:cucumber": "cucumber-js"
+    "testFirst": "npx playwright test --grep @Pre",
+    "testAPI": "npx playwright test --grep @Api",
+    "alluregenerate": "allure generate allure-results --clean",
+    "allureopen": "allure open allure-report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.64.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.4",
     "allure-commandline": "^2.46.1",
     "allure-playwright": "^3.14.0"
