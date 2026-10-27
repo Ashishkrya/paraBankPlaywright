@@ -12,13 +12,13 @@ class AccountsOverview {
         this.accountId = page.locator('#accountId');
     }
     async getpage(){
-        await this.page.goto('overview.htm');
+        await this.page.goto('https://parabank.parasoft.com/parabank/overview.htm');
         await expect(this.link).toBeVisible();
         await this.link.click();
     }
 
-    async verifyAccountsOverview() {
-        await expect(this.accountsOverviewTitle).toHaveText('Accounts Overview');
+    async verifyAccountsOverview(title) {
+        await expect(this.accountsOverviewTitle).toHaveText(title);
     }
 
     async getAccountsDetails() {
@@ -29,10 +29,8 @@ class AccountsOverview {
         await this.accountRows.first().locator('a').click();
     }
 
-    async verifyAccountDetails(expectedAccount) {
-        await expect(this.accountDetailsTitle).toHaveText('Account Details');
-
-        await expect(this.accountId).toHaveText(expectedAccount);
+    async verifyAccountDetails(heading) {
+        await expect(this.accountDetailsTitle).toHaveText(heading);
     }
 
     async verifyAccountNumber(expectedAccount) {

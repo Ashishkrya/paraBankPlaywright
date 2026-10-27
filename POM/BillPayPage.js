@@ -4,6 +4,7 @@ class BillPayPage {
         this.page = page;
         this.billPaymentLink = page.locator('#leftPanel').getByRole('link', { name: 'Bill Pay' });
         this.billTitle = page.locator('#billpayForm h1.title');
+        this.payeeNameInput = page.locator('td').filter({ hasText: 'Payee Name:' })
         this.payeeName = page.locator('[name="payee.name"]');
         this.payeeAdd = page.locator('[name="payee.address.street"]');
         this.payeeCity = page.locator('[name="payee.address.city"]');
@@ -16,15 +17,26 @@ class BillPayPage {
         this.fromAccount = page.locator('#billpayForm select[name="fromAccountId"]');
         this.sendPaymenbtnt = page.locator('#billpayForm input[value="Send Payment"]');
         this.verifyPayment = page.locator('#billpayResult h1.title');
+        this.error = page.locator("#validationModel-name");
 
-
+    }
+    async navigateToBillPay() {
+        await this.page.goto('billpay.htm');
     }
     async billPayPage() {
         await expect(this.billPaymentLink).toBeVisible();
         await this.billPaymentLink.click();
-        await expect(this.billTitle).toHaveText('Bill Payment Service')
 
     }
+    async billPagetitle(title) {
+        await expect(this.billTitle).toHaveText(title);
+
+    }
+    async payeeNameinput() {
+        await expect(this.payeeNameInput).toBeVisible();
+
+    }
+
     async fillPayeeDetails(userData) {
         await this.payeeName.fill(userData.payeeName);
         await this.payeeAdd.fill(userData.address);
@@ -47,11 +59,47 @@ class BillPayPage {
         await this.sendPaymenbtnt.click();
 
     }
-    async verifyPaymentComplete() {
-        await expect(this.verifyPayment).toContainText('Bill Payment Complete');
+    async verifyPaymentComplete(msg) {
+        await expect(this.verifyPayment).toContainText(msg);
         await expect(this.verifyPayment).toBeVisible();
 
     }
+    //BDD
+    async fillPayeeName(name) {
+        await this.payeeName.fill(name);
+    }
+
+    async fillPayeeAddress(address, city, state, zip) {
+        await this.payeeAdd.fill(address);
+        await this.payeeCity.fill(city);
+        await this.payeeState.fill(state);
+        await this.payeeZip.fill(zip);
+    }
+
+    async fillPayeePhone(phone) {
+        await this.payeePhone.fill(phone);
+    }
+
+    async fillPayeeAccount(accountNumber) {
+        await this.payeeAcc.fill(accountNumber);
+    }
+
+    async confirmPayeeAccount(accountNumber) {
+        await this.payeeVerifyAcc.fill(accountNumber);
+    }
+
+    async enterPaymentAmount(amount) {
+        await this.amount.fill(amount);
+    }
+    async validateerror() {
+        await expect(this.error).toBeVisible();
+        await expect(this.error).toHaveText('Payee name is required.')
+    }
+    async clickButton(buttonName) {
+    await this.page.getByRole('button', {
+        name: buttonName
+    }).click();
+}
 
 }
 module.exports = BillPayPage;

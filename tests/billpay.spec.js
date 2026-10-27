@@ -8,8 +8,9 @@ test('@Web Bill Payment', async ({ page }) => {
     const poManager = new POManager(page);
     const billPayPage = poManager.getbillPayPage();
     await billPayPage.billPayPage();
+    await billPayPage.billPagetitle('Bill Payment Service');
     await billPayPage.fillPayeeDetails(userData);
     await billPayPage.selectFromAccount();
     await billPayPage.sendPayment();
-    await billPayPage.verifyPaymentComplete();
+    await billPayPage.verifyPaymentComplete('Bill Payment Complete');
 })

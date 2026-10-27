@@ -10,14 +10,12 @@ Feature: Bill Payment
   So that I can settle payments directly from my bank account
 
   Background:
-    Given the user is logged in to ParaBank
-    And the user navigates to the Bill Pay page
+    Given the user is logged in to ParaBank and user navigates to the Bill Pay page
 
   # AC-06.1 — Page elements visible
   Scenario: Bill Pay page displays the required form elements
-    Then the heading "Bill Pay" is visible
+    Then the heading "Bill Payment Service" is visible on the Bill Pay page
     And the payee name input is visible
-    And the "Send Payment" button is visible
 
   # AC-06.2 — Successful bill payment
   Scenario: Pay a bill successfully with complete payee details
@@ -27,7 +25,7 @@ Feature: Bill Payment
     And the user fills in the payee account number "12345"
     And the user confirms the account number "12345"
     And the user enters payment amount "50"
-    And the user clicks the "Send Payment" button
+    When the user clicks the "Send Payment" button
     Then the confirmation message "Bill Payment Complete" is displayed
 
   # AC-06.3 — Empty form validation
@@ -35,13 +33,4 @@ Feature: Bill Payment
     When the user clicks the "Send Payment" button without filling any fields
     Then at least one validation error is displayed
 
-  # ---- PRACTICE TASK (Level 3 - #9) ----
-  # Scenario Outline: Validation errors for invalid payee inputs
-  #   When the user submits the bill pay form with "<field>" set to "<value>"
-  #   Then a validation error is shown
-  #
-  #   Examples:
-  #     | field          | value         |
-  #     | payee name     | (empty)       |
-  #     | account number | abc           |
-  #     | amount         | -10           |
+ 

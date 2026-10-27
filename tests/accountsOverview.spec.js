@@ -10,10 +10,10 @@ test('@Web Accounts Overview Page', async ({ page }) => {
     const poManager= new POManager(page);
     const accountsOverview = poManager.getAccountsOverview();
     await accountsOverview.getpage();
-    await accountsOverview.verifyAccountsOverview();
+    await accountsOverview.verifyAccountsOverview('Accounts Overview');
     const firstAccount =(await accountsOverview.getAccountsDetails())[0];
     await accountsOverview.openFirstAccount();
-    await accountsOverview.verifyAccountDetails(firstAccount.account);
+    await accountsOverview.verifyAccountDetails('Account Details');
     await accountsOverview.verifyAccountNumber(firstAccount.account);
     await accountsOverview.selectAccountActivityFilters('All', 'All');
    

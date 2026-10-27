@@ -15,7 +15,7 @@ const LoanrequestBodyy = {
     fromAccountId: String(customersPayload["0"].id)
 };
 //test.describe.configure({mode:'parallel});
-test.describe.configure({mode:'serial'})
+test.describe.configure({ mode: 'serial' })
 test('@Pre Login API', async () => {
     const apiContext = await request.newContext();
     const loginRespose = await apiContext.post('https://parabank.parasoft.com/parabank/login.htm',
@@ -32,61 +32,64 @@ test('@Pre Login API', async () => {
     expect(sessionCookie).toBeDefined();
     saveJson('apiAuth', state);
     console.log('Session saved successfully');
-
-    const html = await loginRespose.text();
-    const match = html.match(/services_proxy\/bank\/customers\/" \+ (\d+) \+ "\/accounts/);
+    //To fetch the customer ID
+    const overviewResponse = await apiContext.get('https://parabank.parasoft.com/parabank/overview.htm');
+    const html = await overviewResponse.text();
+    const match = html.match(/services_proxy\/bank\/customers\/"\s*\+\s*(\d+)\s*\+\s*"\/accounts/);
     expect(match).not.toBeNull();
     const customerId = match[1];
     console.log('Customer ID:', customerId);
-    const accountsResponse = await apiContext.get(`https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}/accounts`,
+    const accountsResponse = await apiContext.get(
+    `https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}/accounts`,
+    {
+        headers: {
+            Accept: 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }
+);
+
+expect(accountsResponse.ok()).toBeTruthy();
+
+const accounts = await accountsResponse.json();
+saveJson('apiAccount', accounts);
+
+console.log('Accounts:', accounts);
+})
+
+test('@Api Loans', async ({ page }) => {
+    // Create a new context using the saved login session
+    const apiContext = await request.newContext({
+        storageState: 'test-data/apiAuth.json'
+    });
+    const loanRespose = await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
         {
+            params: LoanrequestBody,
             headers: {
                 Accept: 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
-            }
-        }
-    );
-
-    expect(accountsResponse.ok()).toBeTruthy();
-    const accounts = await accountsResponse.json();
-    saveJson('apiAccount', accounts)
-    console.log('Accounts:', accounts);
+            },
+        })
+    const loanResposeJson = await loanRespose.json();
+    console.log(loanResposeJson);
 
 })
 
-test('@Api Loans',async({page})=>{
+test('@Api Loans error', async ({ page }) => {
     // Create a new context using the saved login session
     const apiContext = await request.newContext({
         storageState: 'test-data/apiAuth.json'
     });
-     const loanRespose= await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
+    const loanRespose = await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
         {
-            params:LoanrequestBody,
-            headers:{
-               Accept: 'application/json',
+            params: LoanrequestBodyy,
+            headers: {
+                Accept: 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
             },
         })
-        const loanResposeJson= await loanRespose.json();
-        console.log(loanResposeJson);
-
-})
-
-test('@Api Loans error',async({page})=>{
-    // Create a new context using the saved login session
-    const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
-    });
-     const loanRespose= await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
-        {
-            params:LoanrequestBodyy,
-            headers:{
-               Accept: 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-        })
-        const loanResposeJson= await loanRespose.json();
-        console.log(loanRespose.status())
-        console.log(loanResposeJson);
+    const loanResposeJson = await loanRespose.json();
+    console.log(loanRespose.status())
+    console.log(loanResposeJson);
 
 })
