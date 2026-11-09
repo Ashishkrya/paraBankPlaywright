@@ -2,39 +2,33 @@
 # User Story: US-01 — User Authentication (UI)
 # Page Object: pages/login.page.ts
 # Test File:   tests/ui/login.spec.ts
-
+@UI
 Feature: User Login
-  As a bank customer
-  I want to log in to the ParaBank portal
-  So that I can securely access my accounts
+As a bank customer
+I want to log in to the ParaBank portal
+So that I can securely access my accounts
 
-  Background:
-    Given the user is on the ParaBank login page
+Feature: Login functionality
 
-  # AC-01.1 — Happy path login
-  Scenario: Successful login with valid credentials
-    When the user enters valid username and password
-    And the user clicks the "Log In" button
-    Then the user is redirected to the Accounts Overview page
-    And the heading "Accounts Overview" is visible
+  Scenario Outline: Login with different credentials
+    Given the user is on the login page
+    When the user enters username "<username>" and password "<password>"
+    And the user clicks the login button
+    Then the login result should be "<result>"
 
-  # AC-01.2 — Invalid credentials
-  Scenario: Failed login with invalid credentials
-    When the user enters an invalid username "invaliduser"
-    And the user enters an invalid password "wrongpassword"
-    And the user clicks the "Log In" button
-    Then an error message containing "could not be verified" is displayed
+    Examples:
+      | username | password | result  |
+      | admin    | wrong123 | failure |
+      | test     | test123  | failure |
+      | json     | json     | success |
 
-  # AC-01.3 — Navigation to registration
-  Scenario: Navigate to the registration page
-    When the user clicks the "Register" link
-    Then the browser URL contains "register.htm"
-
-  # AC-01.4 — Forgot login info link
-  Scenario: Forgot login info link is visible
-    Then the "Forgot login info?" link is visible on the login page
-
-  # ---- PRACTICE TASK (Level 1 - #2) ----
-  # Scenario: Forgot login info link navigates correctly
-  #   When the user clicks "Forgot login info?"
-  #   Then the user is navigated to the lookup page
+  @invalid-credentials
+  Scenario: Customer logs in with invalid credentials and validates home page menus
+    Given the user is on the login page
+    When the user enters below credentials and validate error message
+      | username     | password     |
+      | invalidUser1 | invalidPass1 |
+      | invalidUser2 | invalidPass2 |
+    Then the user validates the following error details
+      | Error!                                           |
+      | The username and password could not be verified. |

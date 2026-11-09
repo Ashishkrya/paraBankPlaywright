@@ -2,12 +2,11 @@
 # User Story: US-03 — Accounts Overview (UI)
 # Page Object: pages/accounts-overview.page.ts
 # Test File:   tests/ui/accounts-overview.spec.ts
-
+@UI
 Feature: Accounts Overview
   As a logged-in customer
   I want to view a summary of all my bank accounts
   So that I can monitor balances at a glance
-
   Background:
     Given the user navigates to the Accounts Overview page
 

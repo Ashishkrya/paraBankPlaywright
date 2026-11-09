@@ -11,10 +11,8 @@ test.beforeAll(async ({ browser }) => {
     setupPage = await context.newPage();
     const poManager = new POManager(setupPage);
     const openAccount = poManager.getopenAccount();
-
     const newOpenAccountNumber = await openAccount.openNewAccount('SAVINGS');
     saveJson('loginUserID', { newOpenAccountNumber });
-
     await context.close();
 });
 

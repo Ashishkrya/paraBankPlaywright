@@ -7,10 +7,9 @@ const accountId= customersPayload["0"].id
 
 test('@Api Retrieve all accounts',async({page})=>{
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
-    const allAccounts= await apiContext.get(
-        `https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}`,
+    const allAccounts= await apiContext.get(`https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}`,
         {
             headers: {
                 Accept: 'application/json',

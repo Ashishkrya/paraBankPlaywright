@@ -3,12 +3,11 @@
 # Page Object: pages/bill-pay.page.ts
 # Test File:   tests/ui/bill-pay.spec.ts
 # Helper:      utils/test-data.ts — generateBillPayee()
-
+@UI
 Feature: Bill Payment
   As a logged-in customer
   I want to pay bills to a payee
   So that I can settle payments directly from my bank account
-
   Background:
     Given the user is logged in to ParaBank and user navigates to the Bill Pay page
 
@@ -24,7 +23,7 @@ Feature: Bill Payment
     And the user fills in the payee phone "555-0200"
     And the user fills in the payee account number "12345"
     And the user confirms the account number "12345"
-    And the user enters payment amount "50"
+    And the user enters payment amount 50
     When the user clicks the "Send Payment" button
     Then the confirmation message "Bill Payment Complete" is displayed
 

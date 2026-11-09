@@ -22,7 +22,8 @@ export default defineConfig({
     headless: false, //true
     channel: 'chrome',
     storageState: 'test-data/auth.json',
-    screenshot: 'only-on-failure',
+    screenshot: 'on',
+    ignoreHTTPSErrors: true,
   },
   projects: [
     {

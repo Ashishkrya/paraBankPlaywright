@@ -15,7 +15,8 @@ const LoanrequestBodyy = {
     fromAccountId: String(customersPayload["0"].id)
 };
 //test.describe.configure({mode:'parallel});
-test.describe.configure({ mode: 'serial' })
+//test.describe.configure({ mode: 'serial' })
+
 test('@Pre Login API', async () => {
     const apiContext = await request.newContext();
     const loginRespose = await apiContext.post('https://parabank.parasoft.com/parabank/login.htm',
@@ -58,9 +59,8 @@ console.log('Accounts:', accounts);
 })
 
 test('@Api Loans', async ({ page }) => {
-    // Create a new context using the saved login session
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
     const loanRespose = await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
         {
@@ -76,9 +76,8 @@ test('@Api Loans', async ({ page }) => {
 })
 
 test('@Api Loans error', async ({ page }) => {
-    // Create a new context using the saved login session
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
     const loanRespose = await apiContext.post('https://parabank.parasoft.com/parabank/services_proxy/bank/requestLoan',
         {

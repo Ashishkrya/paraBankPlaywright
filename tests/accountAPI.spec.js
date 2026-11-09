@@ -17,10 +17,9 @@ const checkingAccountPayload={
 
 test('@Api Retrieve all accounts',async({page})=>{
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
-    const allAccounts= await apiContext.get(
-        `https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}/accounts`,
+    const allAccounts= await apiContext.get(`https://parabank.parasoft.com/parabank/services_proxy/bank/customers/${customerId}/accounts`,
         {
             headers: {
                 Accept: 'application/json',
@@ -37,10 +36,9 @@ test('@Api Retrieve all accounts',async({page})=>{
 
 test ('@Api Retrieve accounts by ID',async({page})=>{
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
-    const byAccountsID= await apiContext.get(
-        `https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/${accountId}`,
+    const byAccountsID= await apiContext.get(`https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/${accountId}`,
         {
             headers: {
                 Accept: 'application/json',
@@ -58,10 +56,9 @@ test ('@Api Retrieve accounts by ID',async({page})=>{
 
 test ('@Api Create a new Savings account',async({page})=>{
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
-    const newCheckingAccounts= await apiContext.post(
-        `https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount`,
+    const newCheckingAccounts= await apiContext.post(`https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount`,
         {
             params:savingsAccountPayload,
             headers: {
@@ -80,10 +77,9 @@ test ('@Api Create a new Savings account',async({page})=>{
 
 test ('@Api Create a new Checking account',async({page})=>{
     const apiContext = await request.newContext({
-        storageState: 'test-data/apiAuth.json'
+        storageState: 'test-data/Auth.json'
     });
-    const newCheckingAccounts= await apiContext.post(
-        `https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount`,
+    const newCheckingAccounts= await apiContext.post(`https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount`,
         {
             params:checkingAccountPayload,
             headers: {

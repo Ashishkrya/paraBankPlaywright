@@ -1,6 +1,7 @@
 const { expect } = require('@playwright/test');
 const { saveJson } = require('../utils/fileUtils');
 
+//class RegisterPage extends basePage
 class RegisterPage {
     constructor(page) {
         this.page = page;
@@ -26,11 +27,13 @@ class RegisterPage {
         await this.page.goto('https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC');
         if (await this.logOutLink.isVisible().catch(() => false)) {
             await this.logOutLink.click({ timeout: 10000 });
-        } else {
-            await expect(this.registerLink).toBeVisible({ timeout: 10000 });
         }
+        //  else {
+        //     await expect(this.registerLink).toBeVisible({ timeout: 10000 });
+        // }
     }
     async registerUser(userData) {
+        await expect(this.registerLink).toBeVisible({ timeout: 10000 });
         await this.registerLink.click();
         await expect(this.pageHeading).toHaveText('Signing up is easy!');
         await this.firstName.fill(userData.firstName);
@@ -65,5 +68,12 @@ class RegisterPage {
         console.log('Total error messages:', count);
         expect(count).toBe(10);
     }
+
+    // async verifyMenuText(menuText) {
+    //     const locator = this.page.locator('ul.leftmenu li').filter({ hasText: menuText });
+    //     await expect(locator).toHaveText(menuText);
+
+    // }
+
 }
 module.exports = RegisterPage;

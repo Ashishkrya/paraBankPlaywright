@@ -56,7 +56,7 @@ async function getAccountDetails(page) {
     const rows = page.locator('#transactionTable tbody tr');
     await expect(noTransactions).toBeVisible({ timeout: 10000 })
         .catch(async () => {
-            await expect(rows.first()).toBeVisible({ timeout: 10000 });
+            await expect(rows.first()).toBeVisible({ timeout: 10000});
         });
     if (await noTransactions.isVisible()) {
         await expect(noTransactions).toHaveText('No transactions found.');

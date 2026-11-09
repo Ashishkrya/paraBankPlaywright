@@ -15,4 +15,6 @@ npx allure open allure-report
 ///
 npx cucumber-js features/bill-pay.feature
 
+Jenkins Freestyle Project and not a Jenkinsfile/Groovy pipeline,
+
 

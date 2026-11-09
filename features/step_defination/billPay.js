@@ -14,7 +14,7 @@ Then('the payee name input is visible', async function () {
 
 })
 
-When('the user fills in the payee name {string}', async function (payeename) {
+When('The user fills in the payee name {string}', async function (payeename) {
     await this.getbillPayPage.fillPayeeName(payeename);
 })
 Then('the user fills in the payee address {string}, city {string}, state {string}, zip {string}',
@@ -31,7 +31,7 @@ Then('the user fills in the payee account number {string}', async function (acco
 Then('the user confirms the account number {string}', async function (accountNumber) {
     await this.getbillPayPage.confirmPayeeAccount(accountNumber)
 })
-Then('the user enters payment amount {string}', async function (amount) {
+Then('the user enters payment amount {int}', async function (amount) {
     await this.getbillPayPage.enterPaymentAmount(amount)
 
 })

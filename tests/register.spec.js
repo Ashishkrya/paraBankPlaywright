@@ -3,7 +3,6 @@ const login = require('../test-data/loginUserID.json');
 import { userData } from '../test-data/userData';
 const { POManager } = require('../POM/POManager');
 
-
 test('@Pre Fill registration form', async ({ page }) => {
   const poManager = new POManager(page);
   const registerPage = poManager.getregisterPage();
